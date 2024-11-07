@@ -19,6 +19,7 @@ func helloWorldPage(w http.ResponseWriter, r *http.Request) {
 
 func helloWorlHtml(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprint(w, "Hello World")
+	w.Header().Set("Content-Type", "html")
 	switch r.URL.Path {
 	case "/":
 		fmt.Fprint(w, "<h1>Hello World</h1>")
@@ -32,6 +33,7 @@ func helloWorlHtml(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", helloWorlHtml)
 	fmt.Println("Listening on port 80")
+
 	err := http.ListenAndServe("", nil)
 	if err != nil {
 		fmt.Println("Error! message:", err)
