@@ -21,5 +21,8 @@ func helloWorldPage(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", helloWorldPage)
 	fmt.Println("Listening on port 80")
-	http.ListenAndServe("", nil)
+	err := http.ListenAndServe("", nil)
+	if err != nil {
+		fmt.Println("Error! message:", err)
+	}
 }
