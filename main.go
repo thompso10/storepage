@@ -38,13 +38,13 @@ func timeout(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// http.HandleFunc("/timeout", timeout)
 	http.HandleFunc("/", helloWorlHtml)
-	http.HandleFunc("/timeout", timeout)
 
 	fmt.Println("Listening on port 80")
 
 	server := http.Server{
-		Addr:         "",
+		Addr:         ":80",
 		Handler:      nil,
 		ReadTimeout:  1000,
 		WriteTimeout: 1000,
