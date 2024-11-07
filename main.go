@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func helloWorldPage(w http.ResponseWriter, r *http.Request) {
@@ -19,7 +20,7 @@ func helloWorldPage(w http.ResponseWriter, r *http.Request) {
 
 func helloWorlHtml(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprint(w, "Hello World")
-	w.Header().Set("Content-Type", "html")
+	w.Header().Set("Content-Type", "text/html")
 	switch r.URL.Path {
 	case "/":
 		fmt.Fprint(w, "<h1>Hello World</h1>")
@@ -30,12 +31,27 @@ func helloWorlHtml(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func timeout(w http.ResponseWriter, r *http.Request){
+	fmt.Println("Timeout attempt")
+	time.SLeep(2 * time.Second)
+	fmt.Fprint(w, "Request Timeout failed :(")
+}
+
 func main() {
 	http.HandleFunc("/", helloWorlHtml)
 	fmt.Println("Listening on port 80")
 
-	err := http.ListenAndServe("", nil)
-	if err != nil {
-		fmt.Println("Error! message:", err)
+	server :=http.Server{
+		Addr: "",
+		Handler: nil,
+		ReadTimeout: 1000,
+		WriteTimeout: 1000,
+	}
+	server.ListenAndServe() 
+
+
+	// err := http.ListenAndServe("", nil)
+	// if err != nil {
+	// 	fmt.Println("Error! message:", err)
 	}
 }
