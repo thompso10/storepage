@@ -6,7 +6,16 @@ import (
 )
 
 func helloWorldPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello World")
+	// fmt.Fprint(w, "Hello World")
+	switch r.URL.Path {
+	case "/":
+		fmt.Fprint(w, "Hello World")
+	case "/admin":
+		fmt.Fprint(w, "I hate team18")
+	default:
+		fmt.Fprint(w, "404 File not found")
+	}
+
 }
 
 func main() {
