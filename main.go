@@ -31,27 +31,27 @@ func helloWorlHtml(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func timeout(w http.ResponseWriter, r *http.Request){
+func timeout(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Timeout attempt")
-	time.SLeep(2 * time.Second)
+	time.Sleep(2 * time.Second)
 	fmt.Fprint(w, "Request Timeout failed :(")
 }
 
 func main() {
 	http.HandleFunc("/", helloWorlHtml)
+	http.HandleFunc("/timeout", timeout)
+
 	fmt.Println("Listening on port 80")
 
-	server :=http.Server{
-		Addr: "",
-		Handler: nil,
-		ReadTimeout: 1000,
+	server := http.Server{
+		Addr:         "",
+		Handler:      nil,
+		ReadTimeout:  1000,
 		WriteTimeout: 1000,
 	}
-	server.ListenAndServe() 
-
+	server.ListenAndServe()
 
 	// err := http.ListenAndServe("", nil)
 	// if err != nil {
 	// 	fmt.Println("Error! message:", err)
-	}
 }
